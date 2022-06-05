@@ -30,6 +30,15 @@ pub fn get_table_from_html(html_text : &str) -> table_extract::Table {
     matched_table
 }
 
+#[test]
+fn test_getting_table() {
+    let html = get_html(r#"https://www.teamrankings.com/nba/stat/offensive-efficiency"#);
+    let data = get_table_from_html(&html);
+    data.iter().for_each(|row| {
+        row.iter().for_each(|element| println!("{}", element.as_str()));
+    });
+}
+
 fn save_string_to_file(string_to_save : &str) -> Result<(), std::io::Error> {
     use std::fs::File;
     use std::io::Write;
