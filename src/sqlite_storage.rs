@@ -3,7 +3,7 @@ use sqlx::sqlite::SqliteConnectOptions;
 use std::str::FromStr;
 
 pub async fn connect_and_create_database_if_not_exists() -> Result<SqliteConnection, sqlx::Error> {
-    Ok(SqliteConnectOptions::from_str("sqlite://nbastats.db")?
+    Ok(SqliteConnectOptions::from_str("sqlite://db/nbastats.db")?
         .create_if_missing(true)
         .connect().await?)
 }
