@@ -51,7 +51,6 @@ fn save_string_to_file(string_to_save : &str) -> Result<(), std::io::Error> {
     Ok(())
 }
 
-#[allow(dead_code)]
 fn remap_headers_to_vec(input_header : &std::collections::HashMap<String, usize>) -> std::vec::Vec<&str> {
     let mut unsorted_list = input_header.into_iter().map(|(header, index)| {(index, header)}).collect::<Vec<(&usize, &String)>>();
     unsorted_list.sort_by(|(a, _), (b, _)| a.cmp(b));
@@ -77,3 +76,4 @@ fn test_header_sorting() {
     assert_eq!(result, vec!["Rank", "Team", "2022", "Last 3", "Last 1", "Home", "Away", "2021"]); 
     result.iter().for_each(|x| println!("{}", x));
 }
+

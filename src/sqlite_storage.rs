@@ -19,3 +19,17 @@ fn test_database_connection() {
         })
 }
 
+async fn create_table(conn : &mut SqliteConnection, table_name : &str, headers: &Vec<&str>) -> Result<sqlx::sqlite::SqliteQueryResult, sqlx::Error> {
+    let formatted_columns = 
+        headers.iter().enumerate().fold(String::from(""),|accum, (count, header_name)| {
+            let datatype = match count {
+                0 => "INTEGER",
+                1 => "TEXT",
+                _ => "REAL",
+            };
+            let column_string = format!("{} {}, ", header_name, datatype);
+            format!("{} {}", accum, column_string.as_str())
+        });
+    let formatted_query = format!("CREATE TABLE IF NOT EXISTS {} ({});", table_name, formatted_columns);
+    Ok(sqlx::query(&formatted_query).execute(conn).await?)
+}
