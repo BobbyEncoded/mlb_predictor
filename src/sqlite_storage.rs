@@ -19,7 +19,7 @@ fn test_database_connection() {
         })
 }
 
-async fn create_table(conn : &mut SqliteConnection, table_name : &str, headers: &Vec<&str>) -> Result<sqlx::sqlite::SqliteQueryResult, sqlx::Error> {
+pub async fn create_table(conn : &mut SqliteConnection, table_name : &str, headers: &Vec<&str>) -> Result<sqlx::sqlite::SqliteQueryResult, sqlx::Error> {
     let formatted_columns = 
         headers.iter().enumerate().fold(String::from(""),|accum, (count, header_name)| {
             let datatype = match count {
